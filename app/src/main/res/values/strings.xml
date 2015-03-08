@@ -7,7 +7,6 @@
     <string name="textViewMainDescText">Type in a numeric value and choose which number system the value is. Select the target number system and the converted value will be shown.</string>
     <string name="imageViewLogoContentDescriptionText">Logo of developer</string>
     <string name="textViewOutputValueText">Please enter a number</string>
-    <string name="btnConvertText">Convert to target number system</string>
     <string name="textViewLabelEditTextText">Input Value:</string>
     <string name="textViewLabelSpinnerTargetSystemText">Target System:</string>
 
