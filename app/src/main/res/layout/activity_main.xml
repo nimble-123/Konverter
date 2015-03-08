@@ -9,17 +9,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
 
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#fffbc454">
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imageViewLogo"
         android:layout_gravity="center"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/default_margin"
         android:src="@drawable/logo"
-        android:cropToPadding="false"
-        android:adjustViewBounds="true"
         android:contentDescription="@string/imageViewLogoContentDescriptionText" />
 
     <TextView
@@ -27,7 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/textViewMainDescText"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ff2e4171" />
 
     <GridLayout
         android:layout_width="fill_parent"
@@ -45,18 +45,21 @@
             android:layout_gravity="center_vertical"
             android:layout_row="0"
             android:layout_column="0"
-            android:layout_columnSpan="1" />
+            android:layout_columnSpan="1"
+            android:textColor="#ff2e4171" />
 
         <EditText
             android:id="@+id/editTextInputValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/default_margin"
             android:inputType="none"
             android:minWidth="100dp"
             android:layout_column="1"
             android:layout_row="0"
-            android:layout_columnSpan="1" />
+            android:layout_columnSpan="1"
+            android:textColor="#ff2e4171"
+            android:maxLines="1" />
 
         <Spinner
             android:id="@+id/spinnerNumberSystem"
@@ -79,7 +82,8 @@
             android:id="@+id/textViewLabelSpinnerTargetSystem"
             android:layout_gravity="center_vertical"
             android:layout_column="0"
-            android:layout_row="1" />
+            android:layout_row="1"
+            android:textColor="#ff2e4171" />
 
         <Spinner
             android:layout_width="wrap_content"
@@ -101,13 +105,9 @@
         android:text="@string/textViewOutputValueText"
         android:id="@+id/textViewOutputValue"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp" />
+        android:layout_margin="@dimen/default_margin"
+        android:textColor="#ff2e4171"
+        android:clickable="true" />
 
-    <Button
-        android:id="@+id/btnConvert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btnConvertText"
-        android:layout_gravity="center_horizontal" />
 </LinearLayout>
 

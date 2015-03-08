@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,13 +14,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+    private static final String DEBUG_TAG = "nlsltz";
 
-    EditText mEditTextInputValue;
-    TextView mTextViewOutputValue;
-    Button mBtnConvert;
-    Spinner mSpinnerNumberSystem;
-    Spinner mSpinnerTargetSystem;
+    private EditText mEditTextInputValue;
+    private TextView mTextViewOutputValue;
+    private Spinner mSpinnerNumberSystem;
+    private Spinner mSpinnerTargetSystem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,24 +31,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         mSpinnerNumberSystem  = (Spinner) findViewById(R.id.spinnerNumberSystem);
         mTextViewOutputValue  = (TextView) findViewById(R.id.textViewOutputValue);
         mSpinnerTargetSystem  = (Spinner) findViewById(R.id.spinnerTargetSystem);
-        mBtnConvert           = (Button) findViewById(R.id.btnConvert);
 
         mSpinnerNumberSystem.setOnItemSelectedListener(this);
         mSpinnerTargetSystem.setOnItemSelectedListener(this);
-        mBtnConvert.setOnClickListener(this);
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        Log.d("konverter debug", "btnConvert pressed");
-        String sInputValue   = mEditTextInputValue.getText().toString();
-        String sNumberSystem = mSpinnerNumberSystem.getSelectedItem().toString();
-        String sTargetSystem = mSpinnerTargetSystem.getSelectedItem().toString();
-
-        // case distinction with start and target system
-        String sResult = this.convert(sInputValue, sNumberSystem, sTargetSystem);
-        mTextViewOutputValue.setText(sResult);
     }
 
     @Override
@@ -74,8 +61,25 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Log.d("konverter debug", "SpinnerItem " + parent.getItemAtPosition(position).toString() + " selected");
-        //TODO: call convert function so btnConvert are not needed anymore
+        Log.d(DEBUG_TAG, "SpinnerItem " + parent.getItemAtPosition(position).toString() + " selected");
+        String sInputValue   = mEditTextInputValue.getText().toString();
+        String sNumberSystem = mSpinnerNumberSystem.getSelectedItem().toString();
+        String sTargetSystem = mSpinnerTargetSystem.getSelectedItem().toString();
+
+        // case distinction with start and target system
+        String sResult = null;
+        try {
+            sResult = this.convert(sInputValue, sNumberSystem, sTargetSystem);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mTextViewOutputValue.setText(sResult);
+
+        if (sNumberSystem.equals("Decimal")) {
+            mEditTextInputValue.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+        } else {
+            mEditTextInputValue.setInputType(EditorInfo.TYPE_CLASS_TEXT);
+        }
     }
 
     @Override
@@ -83,7 +87,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     }
 
-    private String convert(String sInputValue, String sNumberSystem, String sTargetSystem) {
+    private String convert(String sInputValue, String sNumberSystem, String sTargetSystem) throws Exception {
         String sResult = "";
         switch (sNumberSystem) {
             case "Decimal":
