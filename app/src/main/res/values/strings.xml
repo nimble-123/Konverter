@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Konverter</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_Share">Share</string>
+
+    <string name="textViewMainDescText">Type in a numeric value and choose which number system the value is. Select the target number system and the converted value will be shown.</string>
+    <string name="imageViewLogoContentDescriptionText">Logo of developer</string>
+    <string name="textViewOutputValueText">Please enter a number</string>
+    <string name="btnConvertText">Convert to target number system</string>
+    <string name="textViewLabelEditTextText">Input Value:</string>
+    <string name="textViewLabelSpinnerTargetSystemText">Target System:</string>
+
+    <string name="numbersystem_prompt">Choose a system</string>
+    <string-array name="numbersystem_array">
+        <item>Decimal</item>
+        <item>Binary</item>
+        <item>Octal</item>
+        <item>Hexal</item>
+    </string-array>
+
+</resources>
