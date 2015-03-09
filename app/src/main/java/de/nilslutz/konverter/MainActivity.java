@@ -1,6 +1,8 @@
 package de.nilslutz.konverter;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.support.v7.widget.ShareActionProvider;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -20,6 +23,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     private TextView mTextViewOutputValue;
     private Spinner mSpinnerNumberSystem;
     private Spinner mSpinnerTargetSystem;
+    private ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,32 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem shareItem = menu.findItem(R.id.menu_item_share);
+
+        if (shareItem != null) {
+            mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        }
+
+        // set ShareIntent Content first time
+        setShareIntent();
+
         return true;
+    }
+
+    private void setShareIntent() {
+        if (mShareActionProvider != null) {
+
+            // create an Intent with the contents of the TextView
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Android Development");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, mTextViewOutputValue.getText());
+
+            // Make sure the provider knows
+            // it should work with that Intent
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
     }
 
     @Override
@@ -79,6 +108,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         } else {
             mEditTextInputValue.setInputType(EditorInfo.TYPE_CLASS_TEXT);
         }
+
+        // refresh ShareIntent Content
+        setShareIntent();
     }
 
     @Override
